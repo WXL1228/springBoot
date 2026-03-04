@@ -1,0 +1,16 @@
+2026-03-04T17:10:23.486+08:00  INFO 48152 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.14 with PID 48152 (C:\javaProject\springBoot\target\classes started by wxl99 in C:\javaProject\springBoot)
+2026-03-04T17:10:23.493+08:00 DEBUG 48152 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
+2026-03-04T17:10:23.495+08:00  INFO 48152 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
+2026-03-04T17:10:24.022+08:00  WARN 48152 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
+2026-03-04T17:10:24.247+08:00  INFO 48152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
+2026-03-04T17:10:24.259+08:00  INFO 48152 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-04T17:10:24.259+08:00  INFO 48152 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-04T17:10:24.296+08:00  INFO 48152 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-04T17:10:24.297+08:00  INFO 48152 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 761 ms
+2026-03-04T17:10:24.506+08:00 DEBUG 48152 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 4 mappings in 'requestMappingHandlerMapping'
+2026-03-04T17:10:24.553+08:00 DEBUG 48152 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-03-04T17:10:24.568+08:00 DEBUG 48152 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-03-04T17:10:24.609+08:00 DEBUG 48152 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-03-04T17:10:24.770+08:00  INFO 48152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path '/'
+2026-03-04T17:10:24.776+08:00  INFO 48152 --- [main] com.example.springboot.Application       : Started Application in 1.725 seconds (process running for 2.324)
+2026-03-04T17:10:29.969+08:00  INFO 48152 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
