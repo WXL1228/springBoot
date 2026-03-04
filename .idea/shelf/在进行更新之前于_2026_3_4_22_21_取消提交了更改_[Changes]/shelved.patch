@@ -1,0 +1,1147 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n    <parent>\r\n        <groupId>org.springframework.boot</groupId>\r\n        <artifactId>spring-boot-starter-parent</artifactId>\r\n        <version>3.5.11</version>\r\n        <relativePath/> <!-- lookup parent from repository -->\r\n    </parent>\r\n    <groupId>com.example</groupId>\r\n    <artifactId>SpringBoot</artifactId>\r\n    <version>0.0.1-SNAPSHOT</version>\r\n    <name>SpringBoot</name>\r\n    <description>SpringBoot</description>\r\n    <url/>\r\n    <properties>\r\n        <java.version>17</java.version>\r\n    </properties>\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-web</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.mybatis.spring.boot</groupId>\r\n            <artifactId>mybatis-spring-boot-starter</artifactId>\r\n            <version>3.0.5</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>com.mysql</groupId>\r\n            <artifactId>mysql-connector-j</artifactId>\r\n            <scope>runtime</scope>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.projectlombok</groupId>\r\n            <artifactId>lombok</artifactId>\r\n            <optional>true</optional>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.springframework.boot</groupId>\r\n                <artifactId>spring-boot-maven-plugin</artifactId>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/pom.xml	(date 1772633497733)
+@@ -25,7 +25,7 @@
+         <dependency>
+             <groupId>org.mybatis.spring.boot</groupId>
+             <artifactId>mybatis-spring-boot-starter</artifactId>
+-            <version>3.0.5</version>
++            <version>3.0.3</version>
+         </dependency>
+ 
+         <dependency>
+Index: src/main/java/com/example/springboot/Application.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.springboot;\r\n\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\n\r\n@SpringBootApplication\r\npublic class Application {\r\n\r\n    public static void main(String[] args) {\r\n        SpringApplication.run(Application.class, args);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/springboot/Application.java b/src/main/java/com/example/springboot/Application.java
+--- a/src/main/java/com/example/springboot/Application.java	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/src/main/java/com/example/springboot/Application.java	(date 1772633305608)
+@@ -1,9 +1,11 @@
+ package com.example.springboot;
+ 
++import org.mybatis.spring.annotation.MapperScan;
+ import org.springframework.boot.SpringApplication;
+ import org.springframework.boot.autoconfigure.SpringBootApplication;
+ 
+ @SpringBootApplication
++@MapperScan("com.example.springboot.mapper")
+ public class Application {
+ 
+     public static void main(String[] args) {
+Index: src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>server:\r\n  port: 9090 #?????\r\nspring:\r\n  datasource:\r\n    driver-class-name: com.mysql.cj.jdbc.Driver\r\n    url: jdbc:mysql://localhost:3306/SpringBoot?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&useSSl=false\r\n    username: root\r\n    password: root\r\n  jpa:\r\n    show-sql: true\r\n    properties:\r\n      hibernate:\r\n        format_sql: true   # ??? SQL?????\r\n        use_sql_comments: true  # ???? SQL ????????????\r\n\r\nlogging:\r\n  file:\r\n    name: logs/app.log          # ???????????????????\r\n    # path: /var/logs           # ?????????????? spring.log\r\n  level:\r\n    com.example: DEBUG           # ??????????????\r\n    org.hibernate.SQL: DEBUG   # ?? SQL\r\n    org.hibernate.orm.jdbc.bind: TRACE  # ?? SQL ???Spring Boot 3.x / Hibernate 6 ?????\r\n    org.springframework.web: DEBUG\r\n    l.BasicBinder: TRACE
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/application.yml b/src/main/resources/application.yml
+--- a/src/main/resources/application.yml	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/src/main/resources/application.yml	(date 1772633421896)
+@@ -1,5 +1,7 @@
+ server:
+-  port: 9090 #?????
++  port: 9090 #端口号
++
++#  数据库配置
+ spring:
+   datasource:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+@@ -13,6 +15,16 @@
+         format_sql: true   # ??? SQL?????
+         use_sql_comments: true  # ???? SQL ????????????
+ 
++#Mybatis
++mybatis:
++  #  映射xml
++  mapper-locations: classpath:mapper/*.xml
++  configuration:
++    #   配置日志
++    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
++    map-underscore-to-camel-case: true
++
++
+ logging:
+   file:
+     name: logs/app.log          # ???????????????????
+Index: src/main/java/com/example/springboot/common/Result.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.springboot.common;\r\n\r\nimport lombok.Data;\r\n\r\n@Data\r\npublic class Result {\r\n//    private static final String SUCCESS_CODE = \"200\";\r\n//    private static final String ERROR_CODE = \"500\";\r\n    private String code;\r\n    private String msg;\r\n    private Object data;\r\n\r\n    public  static Result success() {\r\n        Result result = new Result();\r\n        result.setCode(\"200\");\r\n        result.setMsg(\"成功\");\r\n        return result;\r\n    }\r\n\r\n    public  static Result success(Object data) {\r\n        Result result = new Result();\r\n        result.setCode(\"200\");\r\n        result.setData(data);\r\n        result.setMsg(\"成功\");\r\n        return result;\r\n    }\r\n\r\n    public  static Result success(String msg,Object data) {\r\n        Result result = new Result();\r\n        result.setCode(\"200\");\r\n        result.setData(data);\r\n        result.setMsg(msg);\r\n        return result;\r\n    }\r\n    public  static Result error(String msg) {\r\n        Result result = new Result();\r\n        result.setCode(\"500\");\r\n        result.setMsg(msg);\r\n        return result;\r\n    }\r\n    public  static Result error(String msg, Object data) {\r\n        Result result = new Result();\r\n        result.setCode(\"500\");\r\n        result.setMsg(msg);\r\n        result.setData(data);\r\n        return result;\r\n    }\r\n    public  static Result error(String code, String msg, Object data) {\r\n        Result result = new Result();\r\n        result.setCode(code);\r\n        result.setMsg(msg);\r\n        result.setData(data);\r\n        return result;\r\n    }\r\n\r\n\r\n\r\n//    public String getCode() {\r\n//        return code;\r\n//    }\r\n//\r\n//    public String getMsg() {\r\n//        return msg;\r\n//    }\r\n//\r\n//    public Object getData() {\r\n//        return data;\r\n//    }\r\n//\r\n//    public void setCode(String code) {\r\n//        this.code = code;\r\n//    }\r\n//\r\n//    public void setMsg(String msg) {\r\n//        this.msg = msg;\r\n//    }\r\n//\r\n//    public void setData(Object data) {\r\n//        this.data = data;\r\n//    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/springboot/common/Result.java b/src/main/java/com/example/springboot/common/Result.java
+--- a/src/main/java/com/example/springboot/common/Result.java	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/src/main/java/com/example/springboot/common/Result.java	(date 1772632572083)
+@@ -10,6 +10,7 @@
+     private String msg;
+     private Object data;
+ 
++
+     public  static Result success() {
+         Result result = new Result();
+         result.setCode("200");
+@@ -54,29 +55,4 @@
+     }
+ 
+ 
+-
+-//    public String getCode() {
+-//        return code;
+-//    }
+-//
+-//    public String getMsg() {
+-//        return msg;
+-//    }
+-//
+-//    public Object getData() {
+-//        return data;
+-//    }
+-//
+-//    public void setCode(String code) {
+-//        this.code = code;
+-//    }
+-//
+-//    public void setMsg(String msg) {
+-//        this.msg = msg;
+-//    }
+-//
+-//    public void setData(Object data) {
+-//        this.data = data;
+-//    }
+-
+ }
+Index: src/main/java/com/example/springboot/controller/WebController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.springboot.controller;\r\n\r\nimport com.example.springboot.common.Result;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\n@RestController\r\npublic class WebController {\r\n\r\n    @GetMapping(value = \"hello\")\r\n    public  Result hello() {\r\n        return Result.success();\r\n    }\r\n\r\n    @GetMapping(value = \"hello2\")\r\n    public  Result hello2() {\r\n        Map<Object,Object> map = new HashMap<>();\r\n        List<Object> list = new ArrayList<>();\r\n        for(int i = 0; list.size() < 10; i++){\r\n            list.add(\"hello\" + i);\r\n        }\r\n        map.put(\"hello2\",list);\r\n        map.put(\"hello\",\"world\");\r\n        return Result.success(map);\r\n//        return map;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/springboot/controller/WebController.java b/src/main/java/com/example/springboot/controller/WebController.java
+--- a/src/main/java/com/example/springboot/controller/WebController.java	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/src/main/java/com/example/springboot/controller/WebController.java	(date 1772630604010)
+@@ -1,6 +1,7 @@
+ package com.example.springboot.controller;
+ 
+ import com.example.springboot.common.Result;
++import com.example.springboot.exception.CustomException;
+ import org.springframework.web.bind.annotation.GetMapping;
+ import org.springframework.web.bind.annotation.RestController;
+ 
+@@ -30,4 +31,9 @@
+ //        return map;
+     }
+ 
++
++    @GetMapping(value = "count")
++    public  Result count() {
++        throw new CustomException("ssss");
++    }
+ }
+Index: src/main/resources/mapper/EmployeeMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mapper/EmployeeMapper.xml b/src/main/resources/mapper/EmployeeMapper.xml
+new file mode 100644
+--- /dev/null	(date 1772633859403)
++++ b/src/main/resources/mapper/EmployeeMapper.xml	(date 1772633859403)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8" ?>
++<!DOCTYPE mapper
++        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
++        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
++<mapper namespace="com.example.springboot.mapper.EmployeeMapper">
++
++</mapper>
+\ No newline at end of file
+Index: logs/app.log
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>2026-03-04T17:10:23.486+08:00  INFO 48152 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.14 with PID 48152 (C:\\javaProject\\springBoot\\target\\classes started by wxl99 in C:\\javaProject\\springBoot)\r\n2026-03-04T17:10:23.493+08:00 DEBUG 48152 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16\r\n2026-03-04T17:10:23.495+08:00  INFO 48152 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: \"default\"\r\n2026-03-04T17:10:24.022+08:00  WARN 48152 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.\r\n2026-03-04T17:10:24.247+08:00  INFO 48152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)\r\n2026-03-04T17:10:24.259+08:00  INFO 48152 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]\r\n2026-03-04T17:10:24.259+08:00  INFO 48152 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]\r\n2026-03-04T17:10:24.296+08:00  INFO 48152 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext\r\n2026-03-04T17:10:24.297+08:00  INFO 48152 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 761 ms\r\n2026-03-04T17:10:24.506+08:00 DEBUG 48152 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 4 mappings in 'requestMappingHandlerMapping'\r\n2026-03-04T17:10:24.553+08:00 DEBUG 48152 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'\r\n2026-03-04T17:10:24.568+08:00 DEBUG 48152 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice\r\n2026-03-04T17:10:24.609+08:00 DEBUG 48152 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice\r\n2026-03-04T17:10:24.770+08:00  INFO 48152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path '/'\r\n2026-03-04T17:10:24.776+08:00  INFO 48152 --- [main] com.example.springboot.Application       : Started Application in 1.725 seconds (process running for 2.324)\r\n2026-03-04T17:10:29.969+08:00  INFO 48152 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/logs/app.log b/logs/app.log
+--- a/logs/app.log	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/logs/app.log	(date 1772633874545)
+@@ -14,3 +14,660 @@
+ 2026-03-04T17:10:24.770+08:00  INFO 48152 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path '/'
+ 2026-03-04T17:10:24.776+08:00  INFO 48152 --- [main] com.example.springboot.Application       : Started Application in 1.725 seconds (process running for 2.324)
+ 2026-03-04T17:10:29.969+08:00  INFO 48152 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
++2026-03-04T20:46:23.019+08:00  INFO 17132 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 17132 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T20:46:23.023+08:00 DEBUG 17132 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T20:46:23.025+08:00  INFO 17132 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T20:46:24.092+08:00  WARN 17132 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
++2026-03-04T20:46:24.629+08:00  INFO 17132 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T20:46:24.654+08:00  INFO 17132 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T20:46:24.655+08:00  INFO 17132 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T20:46:24.740+08:00  INFO 17132 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T20:46:24.741+08:00  INFO 17132 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1641 ms
++2026-03-04T20:46:25.212+08:00 DEBUG 17132 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 4 mappings in 'requestMappingHandlerMapping'
++2026-03-04T20:46:25.333+08:00 DEBUG 17132 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T20:46:25.368+08:00 DEBUG 17132 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T20:46:25.470+08:00 DEBUG 17132 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T20:46:25.887+08:00  INFO 17132 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path '/'
++2026-03-04T20:46:25.905+08:00  INFO 17132 --- [main] com.example.springboot.Application       : Started Application in 4.009 seconds (process running for 5.792)
++2026-03-04T20:47:01.496+08:00  INFO 17132 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
++2026-03-04T20:47:01.496+08:00  INFO 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
++2026-03-04T20:47:01.497+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
++2026-03-04T20:47:01.497+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
++2026-03-04T20:47:01.497+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
++2026-03-04T20:47:01.499+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@338f6097
++2026-03-04T20:47:01.500+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@384609f4
++2026-03-04T20:47:01.501+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
++2026-03-04T20:47:01.501+08:00  INFO 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
++2026-03-04T20:47:01.516+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/hello2", parameters={}
++2026-03-04T20:47:01.536+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.springboot.controller.WebController#hello2()
++2026-03-04T20:47:01.617+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json]
++2026-03-04T20:47:01.621+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(code=200, msg=成功, data={hello2=[hello0, hello1, hello2, hello3, hello4, hello5, hello6, hello (truncated)...]
++2026-03-04T20:47:01.651+08:00 DEBUG 17132 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
++2026-03-04T20:47:01.717+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
++2026-03-04T20:47:01.723+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
++2026-03-04T20:47:01.729+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
++2026-03-04T20:47:01.738+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
++2026-03-04T20:47:01.738+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
++2026-03-04T20:47:01.754+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
++2026-03-04T20:47:01.758+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
++2026-03-04T20:47:01.780+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
++2026-03-04T20:47:01.781+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Wed Mar 04 20:47:01 CST 2026, status=404, error=Not Found, path=/favicon.ico}]
++2026-03-04T20:47:01.800+08:00 DEBUG 17132 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
++2026-03-04T21:06:11.815+08:00  INFO 17132 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
++2026-03-04T21:21:32.344+08:00  INFO 3400 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 3400 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T21:21:32.349+08:00 DEBUG 3400 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T21:21:32.350+08:00  INFO 3400 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T21:21:33.347+08:00  WARN 3400 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
++2026-03-04T21:21:33.757+08:00  INFO 3400 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T21:21:33.775+08:00  INFO 3400 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T21:21:33.775+08:00  INFO 3400 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T21:21:33.845+08:00  INFO 3400 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T21:21:33.845+08:00  INFO 3400 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1403 ms
++2026-03-04T21:21:34.187+08:00 DEBUG 3400 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T21:21:34.267+08:00 DEBUG 3400 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T21:21:34.290+08:00 DEBUG 3400 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T21:21:34.351+08:00 DEBUG 3400 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T21:21:34.630+08:00  INFO 3400 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path '/'
++2026-03-04T21:21:34.643+08:00  INFO 3400 --- [main] com.example.springboot.Application       : Started Application in 3.25 seconds (process running for 5.139)
++2026-03-04T21:23:23.219+08:00  INFO 3400 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
++2026-03-04T21:23:23.438+08:00  INFO 3400 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
++2026-03-04T21:24:27.161+08:00  INFO 9448 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 9448 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T21:24:27.164+08:00 DEBUG 9448 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T21:24:27.165+08:00  INFO 9448 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T21:24:27.963+08:00  WARN 9448 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
++2026-03-04T21:24:28.332+08:00  INFO 9448 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T21:24:28.347+08:00  INFO 9448 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T21:24:28.347+08:00  INFO 9448 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T21:24:28.412+08:00  INFO 9448 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T21:24:28.413+08:00  INFO 9448 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1183 ms
++2026-03-04T21:24:28.704+08:00 DEBUG 9448 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T21:24:28.775+08:00 DEBUG 9448 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T21:24:28.805+08:00 DEBUG 9448 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T21:24:28.854+08:00 DEBUG 9448 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T21:24:29.108+08:00  INFO 9448 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path '/'
++2026-03-04T21:24:29.118+08:00  INFO 9448 --- [main] com.example.springboot.Application       : Started Application in 2.784 seconds (process running for 3.829)
++2026-03-04T21:24:29.194+08:00  INFO 9448 --- [http-nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
++2026-03-04T21:24:29.195+08:00  INFO 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
++2026-03-04T21:24:29.196+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
++2026-03-04T21:24:29.197+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
++2026-03-04T21:24:29.197+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
++2026-03-04T21:24:29.198+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6d7508c8
++2026-03-04T21:24:29.198+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@1a722ca5
++2026-03-04T21:24:29.198+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
++2026-03-04T21:24:29.200+08:00  INFO 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
++2026-03-04T21:24:29.213+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/count", parameters={}
++2026-03-04T21:24:29.232+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.example.springboot.controller.WebController#count()
++2026-03-04T21:24:29.255+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.springboot.exception.GlobalExceptionHandler#handleCustomException(CustomException)
++2026-03-04T21:24:29.256+08:00 ERROR 9448 --- [http-nio-9090-exec-1] c.e.s.exception.GlobalExceptionHandler   : 业务异常
++
++CustomException(code=500, msg=ssss)
++	at com.example.springboot.controller.WebController.count(WebController.java:37) ~[classes/:na]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
++	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
++	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
++	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.52.jar:6.0]
++	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.52.jar:6.0]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1775) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
++
++2026-03-04T21:24:29.323+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/json, application/*+json]
++2026-03-04T21:24:29.328+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(code=500, msg=ssss, data=null)]
++2026-03-04T21:24:29.353+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [CustomException(code=500, msg=ssss)]
++2026-03-04T21:24:29.355+08:00 DEBUG 9448 --- [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
++2026-03-04T21:24:29.439+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
++2026-03-04T21:24:29.451+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
++2026-03-04T21:24:29.455+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
++2026-03-04T21:24:29.457+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.example.springboot.exception.GlobalExceptionHandler#handleException(Exception)
++2026-03-04T21:24:29.458+08:00 ERROR 9448 --- [http-nio-9090-exec-2] c.e.s.exception.GlobalExceptionHandler   : 系统异常
++
++org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.
++	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.52.jar:6.0]
++	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.16.jar:6.2.16]
++	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.52.jar:6.0]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.16.jar:6.2.16]
++	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1775) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.52.jar:10.1.52]
++	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
++
++2026-03-04T21:24:29.462+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
++2026-03-04T21:24:29.463+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing [Result(code=500, msg=系统繁忙，请稍后再试, data=null)]
++2026-03-04T21:24:29.467+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
++2026-03-04T21:24:29.467+08:00 DEBUG 9448 --- [http-nio-9090-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
++2026-03-04T21:50:51.279+08:00  INFO 9448 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
++2026-03-04T21:50:51.474+08:00  INFO 9448 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
++2026-03-04T21:50:54.544+08:00  INFO 8320 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 8320 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T21:50:54.548+08:00 DEBUG 8320 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T21:50:54.549+08:00  INFO 8320 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T21:50:55.263+08:00  WARN 8320 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
++2026-03-04T21:50:55.561+08:00  INFO 8320 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T21:50:55.575+08:00  INFO 8320 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T21:50:55.575+08:00  INFO 8320 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T21:50:55.628+08:00  INFO 8320 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T21:50:55.628+08:00  INFO 8320 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1032 ms
++2026-03-04T21:50:55.883+08:00 DEBUG 8320 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T21:50:55.948+08:00 DEBUG 8320 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T21:50:55.969+08:00 DEBUG 8320 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T21:50:56.019+08:00 DEBUG 8320 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T21:50:56.210+08:00  WARN 8320 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++2026-03-04T21:50:56.214+08:00  INFO 8320 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
++2026-03-04T21:50:56.227+08:00  INFO 8320 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
++
++Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
++2026-03-04T21:50:56.252+08:00 ERROR 8320 --- [main] o.s.boot.SpringApplication               : Application run failed
++
++org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:991) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.11.jar:3.5.11]
++	at com.example.springboot.Application.main(Application.java:10) ~[classes/:na]
++Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 21 common frames omitted
++Caused by: java.io.IOException: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:695) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:572) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:712) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration.sqlSessionFactory(MybatisAutoConfiguration.java:189) ~[mybatis-spring-boot-autoconfigure-3.0.5.jar:3.0.5]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
++	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
++	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 24 common frames omitted
++Caused by: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 70; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:262) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.parsing.XPathParser.<init>(XPathParser.java:127) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.builder.xml.XMLMapperBuilder.<init>(XMLMapperBuilder.java:83) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:692) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	... 32 common frames omitted
++Caused by: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 70; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.error(ErrorHandlerWrapper.java:135) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:396) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:284) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.addDTDDefaultAttrsAndValidate(XMLDTDValidator.java:1237) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.handleStartElement(XMLDTDValidator.java:1846) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.startElement(XMLDTDValidator.java:728) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1407) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$ContentDriver.scanRootElementHook(XMLDocumentScannerImpl.java:1292) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:3079) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:836) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:542) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:889) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:247) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342) ~[na:na]
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:260) ~[mybatis-3.5.19.jar:3.5.19]
++	... 35 common frames omitted
++
++2026-03-04T21:52:04.761+08:00  INFO 7668 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 7668 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T21:52:04.764+08:00 DEBUG 7668 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T21:52:04.765+08:00  INFO 7668 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T21:52:05.442+08:00  WARN 7668 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
++2026-03-04T21:52:05.747+08:00  INFO 7668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T21:52:05.763+08:00  INFO 7668 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T21:52:05.763+08:00  INFO 7668 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T21:52:05.819+08:00  INFO 7668 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T21:52:05.820+08:00  INFO 7668 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1004 ms
++2026-03-04T21:52:06.082+08:00 DEBUG 7668 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T21:52:06.147+08:00 DEBUG 7668 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T21:52:06.168+08:00 DEBUG 7668 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T21:52:06.214+08:00 DEBUG 7668 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T21:52:06.362+08:00  WARN 7668 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++2026-03-04T21:52:06.366+08:00  INFO 7668 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
++2026-03-04T21:52:06.380+08:00  INFO 7668 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
++
++Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
++2026-03-04T21:52:06.400+08:00 ERROR 7668 --- [main] o.s.boot.SpringApplication               : Application run failed
++
++org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:991) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.11.jar:3.5.11]
++	at com.example.springboot.Application.main(Application.java:10) ~[classes/:na]
++Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 21 common frames omitted
++Caused by: java.io.IOException: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployMapper.xml]'
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:695) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:572) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:712) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration.sqlSessionFactory(MybatisAutoConfiguration.java:189) ~[mybatis-spring-boot-autoconfigure-3.0.5.jar:3.0.5]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
++	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
++	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 24 common frames omitted
++Caused by: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 70; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:262) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.parsing.XPathParser.<init>(XPathParser.java:127) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.builder.xml.XMLMapperBuilder.<init>(XMLMapperBuilder.java:83) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:692) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	... 32 common frames omitted
++Caused by: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 70; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.error(ErrorHandlerWrapper.java:135) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:396) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:284) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.addDTDDefaultAttrsAndValidate(XMLDTDValidator.java:1237) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.handleStartElement(XMLDTDValidator.java:1846) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.startElement(XMLDTDValidator.java:728) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1407) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$ContentDriver.scanRootElementHook(XMLDocumentScannerImpl.java:1292) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:3079) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:836) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:542) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:889) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:247) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342) ~[na:na]
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:260) ~[mybatis-3.5.19.jar:3.5.19]
++	... 35 common frames omitted
++
++2026-03-04T21:59:17.518+08:00  INFO 12320 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 12320 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T21:59:17.521+08:00 DEBUG 12320 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T21:59:17.522+08:00  INFO 12320 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T21:59:18.214+08:00  WARN 12320 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
++2026-03-04T21:59:18.533+08:00  INFO 12320 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T21:59:18.548+08:00  INFO 12320 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T21:59:18.548+08:00  INFO 12320 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T21:59:18.600+08:00  INFO 12320 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T21:59:18.601+08:00  INFO 12320 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1021 ms
++2026-03-04T21:59:18.859+08:00 DEBUG 12320 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T21:59:18.931+08:00 DEBUG 12320 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T21:59:18.952+08:00 DEBUG 12320 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T21:59:19.003+08:00 DEBUG 12320 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T21:59:19.162+08:00  WARN 12320 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++2026-03-04T21:59:19.165+08:00  INFO 12320 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
++2026-03-04T21:59:19.178+08:00  INFO 12320 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
++
++Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
++2026-03-04T21:59:19.195+08:00 ERROR 12320 --- [main] o.s.boot.SpringApplication               : Application run failed
++
++org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:991) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.11.jar:3.5.11]
++	at com.example.springboot.Application.main(Application.java:10) ~[classes/:na]
++Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 21 common frames omitted
++Caused by: java.io.IOException: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:695) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:572) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:712) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration.sqlSessionFactory(MybatisAutoConfiguration.java:189) ~[mybatis-spring-boot-autoconfigure-3.0.5.jar:3.0.5]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
++	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
++	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 24 common frames omitted
++Caused by: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 70; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:262) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.parsing.XPathParser.<init>(XPathParser.java:127) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.builder.xml.XMLMapperBuilder.<init>(XMLMapperBuilder.java:83) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:692) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	... 32 common frames omitted
++Caused by: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 70; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.error(ErrorHandlerWrapper.java:135) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:396) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:284) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.addDTDDefaultAttrsAndValidate(XMLDTDValidator.java:1237) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.handleStartElement(XMLDTDValidator.java:1846) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.startElement(XMLDTDValidator.java:728) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1407) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$ContentDriver.scanRootElementHook(XMLDocumentScannerImpl.java:1292) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:3079) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:836) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:542) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:889) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:247) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342) ~[na:na]
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:260) ~[mybatis-3.5.19.jar:3.5.19]
++	... 35 common frames omitted
++
++2026-03-04T22:03:21.825+08:00  INFO 1096 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 1096 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T22:03:21.827+08:00 DEBUG 1096 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T22:03:21.828+08:00  INFO 1096 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T22:03:22.538+08:00  WARN 1096 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.springboot]' package. Please check your configuration.
++2026-03-04T22:03:22.847+08:00  INFO 1096 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T22:03:22.860+08:00  INFO 1096 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T22:03:22.861+08:00  INFO 1096 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T22:03:22.908+08:00  INFO 1096 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T22:03:22.908+08:00  INFO 1096 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1028 ms
++2026-03-04T22:03:23.169+08:00 DEBUG 1096 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T22:03:23.237+08:00 DEBUG 1096 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T22:03:23.259+08:00 DEBUG 1096 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T22:03:23.309+08:00 DEBUG 1096 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T22:03:23.464+08:00  WARN 1096 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++2026-03-04T22:03:23.469+08:00  INFO 1096 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
++2026-03-04T22:03:23.483+08:00  INFO 1096 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
++
++Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
++2026-03-04T22:03:23.508+08:00 ERROR 1096 --- [main] o.s.boot.SpringApplication               : Application run failed
++
++org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:991) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.11.jar:3.5.11]
++	at com.example.springboot.Application.main(Application.java:10) ~[classes/:na]
++Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 21 common frames omitted
++Caused by: java.io.IOException: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:695) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:572) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:712) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration.sqlSessionFactory(MybatisAutoConfiguration.java:189) ~[mybatis-spring-boot-autoconfigure-3.0.5.jar:3.0.5]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
++	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
++	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 24 common frames omitted
++Caused by: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 66; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:262) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.parsing.XPathParser.<init>(XPathParser.java:127) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.builder.xml.XMLMapperBuilder.<init>(XMLMapperBuilder.java:83) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:692) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	... 32 common frames omitted
++Caused by: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 66; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.error(ErrorHandlerWrapper.java:135) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:396) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:284) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.addDTDDefaultAttrsAndValidate(XMLDTDValidator.java:1237) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.handleStartElement(XMLDTDValidator.java:1846) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.startElement(XMLDTDValidator.java:728) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1407) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$ContentDriver.scanRootElementHook(XMLDocumentScannerImpl.java:1292) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:3079) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:836) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:542) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:889) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:247) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342) ~[na:na]
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:260) ~[mybatis-3.5.19.jar:3.5.19]
++	... 35 common frames omitted
++
++2026-03-04T22:13:40.828+08:00  INFO 5440 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 5440 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T22:13:40.831+08:00 DEBUG 5440 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T22:13:40.832+08:00  INFO 5440 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T22:13:41.995+08:00  INFO 5440 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T22:13:42.010+08:00  INFO 5440 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T22:13:42.010+08:00  INFO 5440 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T22:13:42.064+08:00  INFO 5440 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T22:13:42.064+08:00  INFO 5440 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1158 ms
++2026-03-04T22:13:42.364+08:00 DEBUG 5440 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T22:13:42.436+08:00 DEBUG 5440 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T22:13:42.459+08:00 DEBUG 5440 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T22:13:42.512+08:00 DEBUG 5440 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T22:13:42.682+08:00  WARN 5440 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++2026-03-04T22:13:42.685+08:00  INFO 5440 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
++2026-03-04T22:13:42.700+08:00  INFO 5440 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
++
++Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
++2026-03-04T22:13:42.718+08:00 ERROR 5440 --- [main] o.s.boot.SpringApplication               : Application run failed
++
++org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:991) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628) ~[spring-context-6.2.16.jar:6.2.16]
++	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.11.jar:3.5.11]
++	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.11.jar:3.5.11]
++	at com.example.springboot.Application.main(Application.java:12) ~[classes/:na]
++Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169) ~[spring-beans-6.2.16.jar:6.2.16]
++	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 21 common frames omitted
++Caused by: java.io.IOException: Failed to parse mapping resource: 'file [C:\project\javaProject\springBoot\target\classes\mapper\EmployeeMapper.xml]'
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:695) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:572) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:712) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	at org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration.sqlSessionFactory(MybatisAutoConfiguration.java:189) ~[mybatis-spring-boot-autoconfigure-3.0.5.jar:3.0.5]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
++	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
++	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
++	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
++	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172) ~[spring-beans-6.2.16.jar:6.2.16]
++	... 24 common frames omitted
++Caused by: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 66; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:262) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.parsing.XPathParser.<init>(XPathParser.java:127) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.apache.ibatis.builder.xml.XMLMapperBuilder.<init>(XMLMapperBuilder.java:83) ~[mybatis-3.5.19.jar:3.5.19]
++	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:692) ~[mybatis-spring-3.0.5.jar:3.0.5]
++	... 32 common frames omitted
++Caused by: org.xml.sax.SAXParseException; lineNumber: 5; columnNumber: 66; 必须为元素类型 "mapper" 声明属性 "namespace"。
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:204) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.error(ErrorHandlerWrapper.java:135) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:396) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:284) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.addDTDDefaultAttrsAndValidate(XMLDTDValidator.java:1237) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.handleStartElement(XMLDTDValidator.java:1846) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.startElement(XMLDTDValidator.java:728) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanStartElement(XMLDocumentFragmentScannerImpl.java:1407) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$ContentDriver.scanRootElementHook(XMLDocumentScannerImpl.java:1292) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:3079) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:836) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:605) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:542) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:889) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:247) ~[na:na]
++	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342) ~[na:na]
++	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:260) ~[mybatis-3.5.19.jar:3.5.19]
++	... 35 common frames omitted
++
++2026-03-04T22:17:52.178+08:00  INFO 14572 --- [main] com.example.springboot.Application       : Starting Application using Java 17.0.18 with PID 14572 (C:\project\javaProject\springBoot\target\classes started by 15650 in C:\project\javaProject\springBoot)
++2026-03-04T22:17:52.181+08:00 DEBUG 14572 --- [main] com.example.springboot.Application       : Running with Spring Boot v3.5.11, Spring v6.2.16
++2026-03-04T22:17:52.183+08:00  INFO 14572 --- [main] com.example.springboot.Application       : No active profile set, falling back to 1 default profile: "default"
++2026-03-04T22:17:53.480+08:00  INFO 14572 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 9090 (http)
++2026-03-04T22:17:53.498+08:00  INFO 14572 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
++2026-03-04T22:17:53.499+08:00  INFO 14572 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
++2026-03-04T22:17:53.570+08:00  INFO 14572 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
++2026-03-04T22:17:53.571+08:00  INFO 14572 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1320 ms
++2026-03-04T22:17:53.915+08:00 DEBUG 14572 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
++2026-03-04T22:17:53.998+08:00 DEBUG 14572 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
++2026-03-04T22:17:54.028+08:00 DEBUG 14572 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
++2026-03-04T22:17:54.093+08:00 DEBUG 14572 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
++2026-03-04T22:17:54.535+08:00  INFO 14572 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 9090 (http) with context path '/'
++2026-03-04T22:17:54.545+08:00  INFO 14572 --- [main] com.example.springboot.Application       : Started Application in 3.367 seconds (process running for 5.022)
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" project-jdk-name=\"corretto-17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/.idea/misc.xml	(date 1772628309525)
+@@ -8,7 +8,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="ms-17" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/saveactions_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/saveactions_settings.xml b/.idea/saveactions_settings.xml
+new file mode 100644
+--- /dev/null	(date 1772632568396)
++++ b/.idea/saveactions_settings.xml	(date 1772632568396)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="SaveActionSettings">
++    <option name="actions">
++      <set>
++        <option value="activate" />
++        <option value="reformatChangedCode" />
++        <option value="missingOverrideAnnotation" />
++        <option value="useBlocks" />
++      </set>
++    </option>
++    <option name="configurationPath" value="" />
++  </component>
++</project>
+\ No newline at end of file
+Index: src/main/java/com/example/springboot/exception/GlobalExceptionHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/springboot/exception/GlobalExceptionHandler.java b/src/main/java/com/example/springboot/exception/GlobalExceptionHandler.java
+new file mode 100644
+--- /dev/null	(date 1772630661629)
++++ b/src/main/java/com/example/springboot/exception/GlobalExceptionHandler.java	(date 1772630661629)
+@@ -0,0 +1,24 @@
++package com.example.springboot.exception;
++
++import com.example.springboot.common.Result;
++import lombok.extern.slf4j.Slf4j;
++import org.springframework.web.bind.annotation.ExceptionHandler;
++import org.springframework.web.bind.annotation.RestControllerAdvice;
++
++@Slf4j
++@RestControllerAdvice
++public class GlobalExceptionHandler {
++
++    @ExceptionHandler(CustomException.class)
++    public Result handleCustomException(CustomException e) {
++        log.error("业务异常",e);
++        return Result.error(e.getCode(),e.getMessage(),null);
++    }
++
++    @ExceptionHandler(Exception.class)
++        public Result handleException(Exception e) {
++        log.error("系统异常",e);
++        return Result.error("系统繁忙，请稍后再试",null);
++    }
++
++}
+Index: .idea/springBoot.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/springBoot.iml b/.idea/springBoot.iml
+new file mode 100644
+--- /dev/null	(date 1772627662796)
++++ b/.idea/springBoot.iml	(date 1772627662796)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="JAVA_MODULE" version="4">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: src/main/java/com/example/springboot/exception/CustomException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/springboot/exception/CustomException.java b/src/main/java/com/example/springboot/exception/CustomException.java
+new file mode 100644
+--- /dev/null	(date 1772630745171)
++++ b/src/main/java/com/example/springboot/exception/CustomException.java	(date 1772630745171)
+@@ -0,0 +1,23 @@
++package com.example.springboot.exception;
++
++import lombok.Data;
++import lombok.EqualsAndHashCode;
++
++@EqualsAndHashCode(callSuper = true)
++@Data
++public class CustomException extends  RuntimeException {
++
++    private  String code;
++    private  String msg;
++
++    public CustomException(String code, String msg) {
++        super(msg);
++        this.code = code;
++        this.msg = msg;
++    }
++    public CustomException( String msg) {
++        super(msg);
++        this.code = "500";
++        this.msg = msg;
++    }
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0073df10-4cac-41bb-8910-26d0fd1a7996\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"localRepository\" value=\"C:\\appMessage\\apache-maven-3.9.12\\repo\" />\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n        <option name=\"userSettingsFile\" value=\"C:\\appMessage\\apache-maven-3.9.12\\conf\\settings.xml\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 5\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3APoVyJ0oCR4Vn7AkXkEjjGWhHA\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,\r\n    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,\r\n    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,\r\n    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;Spring Boot.Application.executor&quot;: &quot;Debug&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;mysql_aurora&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Application\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <module name=\"SpringBoot\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"com.example.springboot.Application\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0073df10-4cac-41bb-8910-26d0fd1a7996\" name=\"Changes\" comment=\"\" />\r\n      <created>1772503597182</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1772503597182</updated>\r\n      <workItem from=\"1772503598248\" duration=\"8373000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4a6eaf626904b3b5db7e50f595e9a76f2a1ad1f6)
++++ b/.idea/workspace.xml	(date 1772633917749)
+@@ -4,7 +4,22 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0073df10-4cac-41bb-8910-26d0fd1a7996" name="Changes" comment="" />
++    <list default="true" id="0073df10-4cac-41bb-8910-26d0fd1a7996" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/saveactions_settings.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/springBoot.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/springboot/exception/CustomException.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/springboot/exception/GlobalExceptionHandler.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/springboot/mapper/EmployeeMapper.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/EmployeeMapper.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/logs/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/app.log" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springboot/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/springboot/Application.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springboot/common/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/springboot/common/Result.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/springboot/controller/WebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/springboot/controller/WebController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -14,9 +29,17 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Class" />
++        <option value="Interface" />
+       </list>
+     </option>
+   </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="KubernetesApiPersistence">{}</component>
++  <component name="KubernetesApiProvider">{
++  &quot;isMigrated&quot;: true
++}</component>
+   <component name="MavenImportPreferences">
+     <option name="generalSettings">
+       <MavenGeneralSettings>
+@@ -26,6 +49,13 @@
+       </MavenGeneralSettings>
+     </option>
+   </component>
++  <component name="McpProjectServerCommands">
++    <commands />
++    <urls />
++  </component>
++  <component name="ProblemsViewState">
++    <option name="selectedTabId" value="CurrentFile" />
++  </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 5
+ }</component>
+@@ -34,32 +64,47 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;Spring Boot.Application.executor&quot;: &quot;Debug&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RequestMappingsPanelOrder0": "0",
++    "RequestMappingsPanelOrder1": "1",
++    "RequestMappingsPanelWidth0": "75",
++    "RequestMappingsPanelWidth1": "75",
++    "RunOnceActivity.MCP Project settings loaded": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "Spring Boot.Application.executor": "Debug",
++    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
++    "git-widget-placeholder": "main",
++    "ignore.virus.scanning.warn.message": "true",
++    "junie.onboarding.icon.badge.shown": "true",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "C:/project/javaProject/springBoot/src/main/java/com/example/springboot",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "project.structure.last.edited": "项目",
++    "project.structure.proportion": "0.0",
++    "project.structure.side.proportion": "0.0",
++    "settings.editor.selected.configurable": "editor.preferences.tabs",
++    "to.speed.mode.migration.done": "true",
++    "vue.rearranger.settings.migration": "true"
+   },
+-  &quot;keyToStringList&quot;: {
+-    &quot;DatabaseDriversLRU&quot;: [
+-      &quot;mysql_aurora&quot;
++  "keyToStringList": {
++    "DatabaseDriversLRU": [
++      "mysql_aurora"
+     ]
+   }
+-}</component>
++}]]></component>
++  <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\project\javaProject\springBoot\src\main\java\com\example\springboot" />
++    </key>
++  </component>
+   <component name="RunManager">
+     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+       <module name="SpringBoot" />
+@@ -72,8 +117,8 @@
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
++        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
++        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
+       </set>
+     </attachedChunks>
+   </component>
+@@ -86,6 +131,10 @@
+       <option name="presentableId" value="Default" />
+       <updated>1772503597182</updated>
+       <workItem from="1772503598248" duration="8373000" />
++      <workItem from="1772627663046" duration="1760000" />
++      <workItem from="1772629642969" duration="60000" />
++      <workItem from="1772630279571" duration="3252000" />
++      <workItem from="1772633600048" duration="316000" />
+     </task>
+     <servers />
+   </component>
+Index: src/main/java/com/example/springboot/mapper/EmployeeMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/springboot/mapper/EmployeeMapper.java b/src/main/java/com/example/springboot/mapper/EmployeeMapper.java
+new file mode 100644
+--- /dev/null	(date 1772632137934)
++++ b/src/main/java/com/example/springboot/mapper/EmployeeMapper.java	(date 1772632137934)
+@@ -0,0 +1,4 @@
++package com.example.springboot.mapper;
++
++public interface EmployeeMapper {
++}

@@ -1,6 +1,7 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.common.Result;
+import com.example.springboot.exception.CustomException;
 import com.example.springboot.service.WebService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,4 +29,9 @@ public class WebController {
         return Result.success(map);
     }
 
+
+    @GetMapping(value = "count")
+    public Result count() {
+        throw new CustomException("ssss");
+    }
 }
