@@ -5,9 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/SpringBoot?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&useSSl=false
+    url: jdbc:mysql://121.41.171.58:3306/springboot?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&useSSl=false
     username: root
-    password: root
+    password: Admin@123456
   jpa:
     show-sql: true
     properties:
