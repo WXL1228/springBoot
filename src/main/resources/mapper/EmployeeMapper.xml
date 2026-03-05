@@ -9,21 +9,55 @@
         select * from employee
     </select>
 
+    <select id="selectByName" resultType="com.example.springboot.entity.Employee">
+        <!--        SELECT * FROM PERSON WHERE ID = #{id}-->
+        select * from employee
+        where NAME = #{name}
+    </select>
+
 
     <select id="selectById" resultType="com.example.springboot.entity.Employee">
         <!--        SELECT * FROM PERSON WHERE ID = #{id}-->
         select * from employee
         WHERE ID = #{id}
-        OR NAME LIKE CONCAT('%', #{name}, '%')
-        OR AGE = #{age}
     </select>
 
     <select id="selectList" resultType="com.example.springboot.entity.Employee">
-        <!--        SELECT * FROM PERSON WHERE ID = #{id}-->
-        select * from employee
-        WHERE ID = #{id}
-        OR NAME LIKE CONCAT('%', #{name}, '%')
-        OR AGE = #{age}
+
+        SELECT * FROM employee
+        <where>
+            <if test="id != null">
+                OR ID = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                OR NAME LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="age != null">
+                OR AGE = #{age}
+            </if>
+        </where>
     </select>
+
+    <insert id="insert" parameterType="com.example.springboot.entity.Employee"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO employee (
+        name, age, sex, no, descr, department_id
+        ) VALUES (
+        #{name}, #{age}, #{sex}, #{no}, #{descr}, #{departmentId}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.example.springboot.entity.Employee">
+        UPDATE employee
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="no != null">no = #{no},</if>
+            <if test="descr != null">descr = #{descr},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
 </mapper>

@@ -8,9 +8,14 @@ import java.util.List;
 public interface EmployeeMapper {
     List<Employee> findAll();
 
-    List<Employee> selectById(@Param("id") Integer id,
-                              @Param("name") String name,
-                              @Param("age") Integer age);
+    Employee selectById(@Param("id") Integer id
+    );
 
     List<Employee> selectList(Employee employee);
+
+    void insert(Employee employee);
+
+    void update(Employee employee);
+
+    Employee selectByName(String name);
 }
