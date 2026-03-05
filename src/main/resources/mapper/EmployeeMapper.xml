@@ -9,4 +9,21 @@
         select * from employee
     </select>
 
+
+    <select id="selectById" resultType="com.example.springboot.entity.Employee">
+        <!--        SELECT * FROM PERSON WHERE ID = #{id}-->
+        select * from employee
+        WHERE ID = #{id}
+        OR NAME LIKE CONCAT('%', #{name}, '%')
+        OR AGE = #{age}
+    </select>
+
+    <select id="selectList" resultType="com.example.springboot.entity.Employee">
+        <!--        SELECT * FROM PERSON WHERE ID = #{id}-->
+        select * from employee
+        WHERE ID = #{id}
+        OR NAME LIKE CONCAT('%', #{name}, '%')
+        OR AGE = #{age}
+    </select>
+
 </mapper>
