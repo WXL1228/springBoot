@@ -1,4 +1,5 @@
 .idea/workspace.xml
-.idea/shelf
+.idea
+.idea/*
 # 忽略 Maven/Gradle 等构建输出目录
 target/
